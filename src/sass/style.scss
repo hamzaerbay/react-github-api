@@ -1,0 +1,50 @@
+@import 'variables';
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	color: $color-midnight;
+	font-size: 40px;
+	background: $color-rain-lighter;
+	h3 {
+		color: $color-coral;
+		margin: 5px 0 10px;
+	}
+	p {
+		color: $color-rain-darker;
+		font-size: 15px;
+		margin: 0;
+	}
+}
+.gh-box {
+	margin: auto;
+	max-width: 600px;
+	text-align: center;
+	&__avatar {
+		width: 80px;
+		display: block;
+		border-radius: 8px;
+		margin: 10px auto;
+	}
+	&__meta {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		font-size: 16px;
+		list-style: none;
+	}
+	&__bio {
+		flex-basis: 100%;
+		margin-bottom: 20px;
+	}
+	&__follower {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		list-style: none;
+		img {
+			width: 48px;
+			border-radius: 8px;
+		}
+	}
+}
