@@ -8,13 +8,24 @@ class GithubCard extends Component {
       userData: [],
       userFollowerData: [],
       name: 'hamzaerbay',
+      error: null,
+      isLoading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount() {
     this.fetchUser(this.state.name);
     this.fetchFollower(this.state.name);
+  }
+
+  loadingProgress() {
+    this.setState({
+      isLoading: true,
+      userData: [],
+      userFollowerData: [],
+    });
   }
   handleChange(event) {
     this.setState({ name: event.target.value });
@@ -27,11 +38,21 @@ class GithubCard extends Component {
   }
 
   fetchUser(username) {
+    this.loadingProgress();
     fetch(`https://api.github.com/users/${username}`)
-      .then(response => response.json())
-      .then(userData => this.setState({ userData }))
-      .catch((err) => {
-        console.log(err);
+      // .then(response => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return `${response.status} something went wrong...`;
+        // console.log(response.statusText, 'Something went wrong ...');
+        // throw new Error('Something went wrong ...');
+      })
+      .then(userData => this.setState({ userData, isLoading: false }))
+      .catch((error) => {
+        this.setState({ error, isLoading: false });
+        console.log('test', error);
       });
   }
 
@@ -42,20 +63,22 @@ class GithubCard extends Component {
         this.setState({ userFollowerData });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('test', err.type);
       });
   }
 
   render() {
-    const { userData, userFollowerData } = this.state;
+    const { userData, userFollowerData, isLoading } = this.state;
     return (
-      <div>
+      <div className={isLoading ? 'is-loading' : null}>
         <form onSubmit={this.handleSubmit}>
           <input type="text" className="gh-box__input" onChange={this.handleChange} />
           <input type="submit" className="gh-box__btn" value="search" />
         </form>
         <div className="gh-box">
-          <img className="gh-box__avatar" src={userData.avatar_url} alt={`${userData.name} ${userData.id}`} />
+          <div className="gh-box__avatar">
+            <img src={userData.avatar_url} alt={`${userData.name} ${userData.id}`} width="80" height="80" />
+          </div>
           <h3>{userData.name}</h3>
           <p>{userData.location}</p>
           {userData.bio ? <p className="gh-box__bio">{userData.bio}</p> : null}

@@ -22,6 +22,18 @@ p {
 	font-size: 15px;
 	margin: 0;
 }
+.is-loading{
+	h3{
+		&:after{
+			content:'loading.';
+		}		
+	}
+	.gh-box__avatar{
+		img{
+			display: none;
+		}
+	}
+}
 .gh-box {
 	background: #fff;
 	border-radius: 6px;
@@ -40,9 +52,15 @@ p {
 	}
 	&__avatar {
 		border-radius: 50%;
+		background: $color-rain-light;
 		display: block;
 		margin: 0 auto 20px auto;
 		width: 80px;
+		height: 80px;
+		img{
+			display: block;
+			border-radius: 50%;
+		}
 	}
 	&__meta {
 		display: flex;
