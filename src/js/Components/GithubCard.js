@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
+import ErrorMessage from './ErrorMessage';
+import GithubCardLoader from './GithubCardLoader';
 import GithubFollowers from './GithubFollowers';
 import SearchForm from './SearchForm';
-import GithubCardLoader from './GithubCardLoader';
 
 class GithubCard extends Component {
   constructor(props) {
@@ -44,38 +46,45 @@ class GithubCard extends Component {
   fetchUser(username) {
     this.loadingProgress();
     fetch(`https://api.github.com/users/${username}`)
-      // .then(response => response.json())
       .then((response) => {
         if (response.ok) {
           return response.json();
         }
         return `${response.status} something went wrong...`;
-        // console.log(response.statusText, 'Something went wrong ...');
-        // throw new Error('Something went wrong ...');
+        // throw new Error(response.status);
       })
       .then(userData => this.setState({ userData, isLoading: false }))
       .catch((error) => {
         this.setState({ error, isLoading: true });
-        console.log('test', error);
+        console.log('hata', error);
       });
   }
 
   fetchFollower(username) {
     fetch(`https://api.github.com/users/${username}/followers`)
-      .then(response => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        // return `${response.status} something went wrong...`;
+        throw new Error(response.status);
+      })
       .then((userFollowerData) => {
         this.setState({ userFollowerData, isLoadingFollowers: false });
       })
       .catch((err) => {
-        this.setState({ err, isLoadingFollowers: true });
-        console.log('test', err.type);
+        this.setState({ isLoadingFollowers: true });
+        console.log(err);
       });
   }
 
   render() {
-    const { userData, userFollowerData, isLoading, isLoadingFollowers } = this.state;
+    const { userData, userFollowerData, isLoading, isLoadingFollowers, error } = this.state;
     return (
-      <div className={ isLoading ? 'is-loading' : null }>
+      <div>
+        {error ?
+          <ErrorMessage errorMessage={ error } /> : null
+        }
         <SearchForm handleChange={ this.handleChange } handleSubmit={ this.handleSubmit } />
         {isLoading ?
           <GithubCardLoader Type />
