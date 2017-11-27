@@ -5,7 +5,7 @@ import GithubCardLoader from './GithubCardLoader';
 const GithubFollowers = (props) => {
   const isLoading = props.isLoading;
   const isError = props.isLoading;
-  const moreFollowerCount = props.followers.length;
+  const moreFollowerCount = props.followerCount;
   const followerLimit = 10;
 
   const getFollowers = props.followers.slice(0, followerLimit).map(follower => (
