@@ -110,7 +110,7 @@ class GithubCard extends Component {
               </li>
             </ul>
           </div>}
-        <GithubFollowers isLoading={ isLoadingFollowers } followers={ userFollowerData } />
+        <GithubFollowers isLoading={ isLoadingFollowers } followers={ userFollowerData } followerCount={ userData.followers } />
       </div>
     );
   }
