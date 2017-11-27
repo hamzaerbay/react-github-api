@@ -52,9 +52,10 @@ p {
 	}
 	&__avatar {
 		border-radius: 50%;
+		border: 5px solid $color-rain-light;
 		background: $color-rain-light;
 		display: block;
-		margin: 0 auto 20px auto;
+		margin: 0 auto 10px auto;
 		width: 80px;
 		height: 80px;
 		img{
@@ -90,15 +91,39 @@ p {
 	}
 	&__bio {
 		flex-basis: 100%;
+		font-weight: 100;
 		margin-bottom: 20px;
+		display: block;
+		color: $color-rain-darker;
 	}
 	&__follower {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: space-around;
+		justify-content: flex-start;
 		list-style: none;
 		padding: 0;
+		li{
+			margin-right: 7px;
+			&:last-of-type{
+				margin-right: 0
+			}
+		}
+		svg{
+			display: block;
+		}
+	}
+	&__more{
+		background: $color-rain-darker;
+		color:white;
+		font-weight: 100;
+		font-size: 15px;
+		border-radius: 8px;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	&__follower-url{
 		display: block;
