@@ -7,7 +7,6 @@ const GithubFollowers = (props) => {
   const isError = props.isLoading;
   const moreFollowerCount = props.followerCount;
   const followerLimit = 10;
-  console.log(moreFollowerCount);
   const getFollowers = props.followers.slice(0, followerLimit).map(follower => (
     <li key={ follower.id }>
       <a
