@@ -5,7 +5,7 @@ body {
 	color: $color-midnight;
 	display: flex;
 	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 40px;
+	font-size: 16px;
 	height: 100vh;
 	justify-content: center;
 	margin: 0;
@@ -19,20 +19,20 @@ h3 {
 }
 p {
 	color: $color-rain-darker;
-	font-size: 15px;
+	font-size: 16px;
 	margin: 0;
 }
-.is-loading{
-	h3{
-		&:after{
-			content:'loading.';
-		}		
-	}
-	.gh-box__avatar{
-		img{
-			display: none;
-		}
-	}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	color: $color-midnight-lightest;
+	font-weight: 100;
+}
+::-moz-placeholder { /* Firefox 19+ */
+	color: $color-midnight-lightest;
+	font-weight: 100;
+}
+:-ms-input-placeholder { /* IE 10+ */
+	color: $color-midnight-lightest;
+	font-weight: 100;
 }
 .gh-box {
 	background: #fff;
@@ -42,14 +42,6 @@ p {
 	text-align: center;
 	padding: 30px 0 0 0;
 	width: 600px;
-	&__input{
-		border: 1px solid $color-rain-light;
-		padding: 5px;
-		border-radius: 4px;
-		&:focus{
-			outline: none;
-		}
-	}
 	&__avatar {
 		border-radius: 50%;
 		border: 5px solid $color-rain-light;
@@ -139,4 +131,49 @@ p {
 			}
 		}
 	}
+}
+.search-form{
+	display: flex;
+	margin-bottom: 15px;
+	&__input{
+		font-size: 16px;
+		font-weight: 100;
+		border: 1px solid $color-rain-light;
+		border-right: none;
+		padding: 10px;
+		border-radius: 3px 0 0 3px;
+		flex:1 0 auto;
+		&:focus{
+			outline: none;
+		}
+	}
+	&__btn{
+		background: $color-white;
+		color: $color-teal;
+		border-radius: 0 3px 3px 0;
+		border: 1px solid $color-rain-light;
+		border-left: none;
+		padding: 10px;
+		font-size: 16px;
+		transition: .4s ease-out;
+		&:focus{
+			outline: none;
+		}
+		&:hover{
+			cursor: pointer;
+			background: $color-teal;
+			border-color: $color-teal;
+			color: $color-white;
+		}
+	}
+}
+.error-message{
+	background: $color-coral;
+	color: $color-white;
+	padding: 10px;
+	font-weight: 100;
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
 }

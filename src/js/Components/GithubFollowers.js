@@ -4,8 +4,8 @@ import GithubCardLoader from './GithubCardLoader';
 
 const GithubFollowers = (props) => {
   const isLoading = props.isLoading;
+  const isError = props.isLoading;
   const moreFollowerCount = props.followers.length;
-
   const followerLimit = 10;
 
   const getFollowers = props.followers.slice(0, followerLimit).map(follower => (
@@ -20,7 +20,7 @@ const GithubFollowers = (props) => {
       </a>
     </li>
   ));
-  if (isLoading) {
+  if (isLoading && isError) {
     return (
       <ul className="gh-box__follower">
         <li>
@@ -41,7 +41,7 @@ const GithubFollowers = (props) => {
   );
 };
 GithubFollowers.propTypes = {
-  followers: PropTypes.array.isRequired,
+  followers: PropTypes.array,
   isLoading: PropTypes.bool.isRequired,
 };
 

@@ -5,9 +5,11 @@ const SearchForm = (props) => {
   const handleSubmit = props.handleSubmit;
   const handleChange = props.handleChange;
   return (
-    <form onSubmit={ handleSubmit }>
-      <input type="text" className="gh-box__input" onChange={ handleChange } />
-      <input type="submit" className="gh-box__btn" value="search" />
+    <form onSubmit={ handleSubmit } className="search-form">
+      <input type="text" className="search-form__input" onChange={ handleChange } placeholder="Github Username" />
+      <button onClick={ handleSubmit } className="search-form__btn" value="search">
+        <i className="fa fa-search" aria-hidden="true" />
+      </button>
     </form>
   );
 };
