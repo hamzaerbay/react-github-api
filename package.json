@@ -11,7 +11,9 @@
   "author": "Hamza Erbay",
   "license": "ISC",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-content-loader": "^1.5.2",
     "react-dom": "^16.0.0"
   },
   "devDependencies": {

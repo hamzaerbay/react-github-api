@@ -1,50 +1,142 @@
 @import 'variables';
 body {
-	font-family: 'Source Sans Pro', sans-serif;
-	color: $color-midnight;
-	font-size: 40px;
+	align-items: center;
 	background: $color-rain-lighter;
-	h3 {
-		color: $color-coral;
-		margin: 5px 0 10px;
+	color: $color-midnight;
+	display: flex;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 40px;
+	height: 100vh;
+	justify-content: center;
+	margin: 0;
+
+}
+h3 {
+	color: $color-midnight;
+	font-size: 23px;
+	font-weight: 600;
+	margin: 5px 0 10px;
+}
+p {
+	color: $color-rain-darker;
+	font-size: 15px;
+	margin: 0;
+}
+.is-loading{
+	h3{
+		&:after{
+			content:'loading.';
+		}		
 	}
-	p {
-		color: $color-rain-darker;
-		font-size: 15px;
-		margin: 0;
+	.gh-box__avatar{
+		img{
+			display: none;
+		}
 	}
 }
 .gh-box {
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 4px 20px rgba(0,0,0,.1);
 	margin: auto;
-	max-width: 600px;
 	text-align: center;
+	padding: 30px 0 0 0;
+	width: 600px;
+	&__input{
+		border: 1px solid $color-rain-light;
+		padding: 5px;
+		border-radius: 4px;
+		&:focus{
+			outline: none;
+		}
+	}
 	&__avatar {
-		width: 80px;
+		border-radius: 50%;
+		border: 5px solid $color-rain-light;
+		background: $color-rain-light;
 		display: block;
-		border-radius: 8px;
-		margin: 10px auto;
+		margin: 0 auto 10px auto;
+		width: 80px;
+		height: 80px;
+		img{
+			display: block;
+			border-radius: 50%;
+		}
 	}
 	&__meta {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: space-around;
 		font-size: 16px;
+		justify-content: space-around;
 		list-style: none;
+		padding: 0;
+		margin: 40px 0 0;
+		border-top: 1px solid #DCE5EB;
+		li{
+			flex:1 0 auto;
+			padding: 15px;
+			color:$color-midnight-lighter;
+			font-size: 14px;
+			border-right: 1px solid #DCE5EB;
+			.fa{
+				font-size: 16px;
+				margin-right: 5px;
+				color:$color-rain;
+			}
+			&:last-child{
+				border: none;
+			}
+		}
 	}
 	&__bio {
 		flex-basis: 100%;
+		font-weight: 100;
 		margin-bottom: 20px;
+		display: block;
+		color: $color-rain-darker;
 	}
 	&__follower {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: space-around;
+		justify-content: flex-start;
 		list-style: none;
+		padding: 0;
+		li{
+			margin-right: 7px;
+			&:last-of-type{
+				margin-right: 0
+			}
+		}
+		svg{
+			display: block;
+		}
+	}
+	&__more{
+		background: $color-rain-darker;
+		color:white;
+		font-weight: 100;
+		font-size: 15px;
+		border-radius: 8px;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&__follower-url{
+		display: block;
 		img {
-			width: 48px;
 			border-radius: 8px;
+			display: block;
+			transition: .4s ease-out;
+			width: 48px;
+		}
+		&:hover{
+			img{
+				transform: scale(1.2)
+			}
 		}
 	}
 }
