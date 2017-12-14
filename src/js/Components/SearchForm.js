@@ -6,7 +6,12 @@ const SearchForm = (props) => {
   const handleChange = props.handleChange;
   return (
     <form onSubmit={ handleSubmit } className="search-form">
-      <input type="text" className="search-form__input" onChange={ handleChange } placeholder="Github Username" />
+      <input
+        type="text"
+        className="search-form__input"
+        onChange={ handleChange }
+        placeholder="Github Username"
+      />
       <button onClick={ handleSubmit } className="search-form__btn" value="search">
         <i className="fa fa-search" aria-hidden="true" />
       </button>

@@ -18,13 +18,26 @@ class GithubCard extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.selectedUser = this.selectedUser.bind(this);
   }
+
 
   componentDidMount() {
-    this.fetchUser(this.state.name);
-    this.fetchFollower(this.state.name);
+    if (localStorage.getItem('userData') && localStorage.getItem('followerData')) {
+      this.existingData(
+        JSON.parse(localStorage.getItem('userData')),
+        JSON.parse(localStorage.getItem('followerData')),
+      );
+      console.log('run existing data');
+    } else {
+      this.fetchUser(this.state.name);
+      this.fetchFollower(this.state.name);
+    }
   }
 
+  existingData(userData, userFollowerData) {
+    this.setState({ userData, userFollowerData });
+  }
   loadingProgress() {
     this.setState({
       isLoading: true,
@@ -53,10 +66,13 @@ class GithubCard extends Component {
         return `${response.status} something went wrong...`;
         // throw new Error(response.status);
       })
-      .then(userData => this.setState({ userData, isLoading: false }))
+      .then((userData) => {
+        this.setState({ userData, isLoading: false });
+        localStorage.setItem('userData', JSON.stringify(userData));
+      })
       .catch((error) => {
         this.setState({ error, isLoading: true });
-        console.log('hata', error);
+        console.log('Error:', error);
       });
   }
 
@@ -71,13 +87,18 @@ class GithubCard extends Component {
       })
       .then((userFollowerData) => {
         this.setState({ userFollowerData, isLoadingFollowers: false });
+        localStorage.setItem('followerData', JSON.stringify(userFollowerData));
       })
       .catch((err) => {
         this.setState({ isLoadingFollowers: true });
-        console.log(err);
+        console.log('Error:', err);
       });
   }
-
+  selectedUser(username) {
+    this.setState({ name: username });
+    this.fetchUser(username);
+    this.fetchFollower(username);
+  }
   render() {
     const { userData, userFollowerData, isLoading, isLoadingFollowers, error } = this.state;
     return (
@@ -93,20 +114,20 @@ class GithubCard extends Component {
             <div className="gh-box__avatar">
               {userData.avatar_url ?
                 <img src={ userData.avatar_url } alt={ `${userData.name} ${userData.id}` } width="80" height="80" />
-                : null }
+                : null}
             </div>
-            <h3>{ userData.name }</h3>
-            <p>{ userData.location }</p>
-            { userData.bio ? <p className="gh-box__bio">{ userData.bio }</p> : null }
+            <h3>{userData.name}</h3>
+            <p>{userData.location}</p>
+            {userData.bio ? <p className="gh-box__bio">{userData.bio}</p> : null}
             <ul className="gh-box__meta">
               <li>
-                <i className="fa fa-users" aria-hidden="true" />{ userData.followers }
+                <i className="fa fa-users" aria-hidden="true" />{userData.followers}
               </li>
               <li>
-                <i className="fa fa-user-plus" aria-hidden="true" />{ userData.following }
+                <i className="fa fa-user-plus" aria-hidden="true" />{userData.following}
               </li>
               <li>
-                <i className="fa fa-code-fork" aria-hidden="true" />{ userData.public_repos }
+                <i className="fa fa-code-fork" aria-hidden="true" />{userData.public_repos}
               </li>
             </ul>
           </div>}
@@ -114,6 +135,7 @@ class GithubCard extends Component {
           isLoading={ isLoadingFollowers }
           followers={ userFollowerData }
           followerCount={ userData.followers }
+          selectedUser={ this.selectedUser }
         />
       </div>
     );
